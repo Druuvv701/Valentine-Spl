@@ -6,9 +6,14 @@
 <title>Valentine Wish 💗</title>
 
 <style>
-body {
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  height: 100%;
   font-family: 'Comic Sans MS', cursive;
   background: linear-gradient(135deg, #ffd6e0, #fff0f5);
   display: flex;
@@ -18,67 +23,78 @@ body {
   position: relative;
 }
 
+/* Use min-height instead of fixed 100vh */
+body {
+  min-height: 100vh;
+}
+
 .container {
   text-align: center;
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 25px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   width: 90%;
-  max-width: 400px;
+  max-width: 380px;
   z-index: 2;
 }
 
 .cat {
-  font-size: 70px;
+  font-size: 60px;
   animation: bounce 1.5s infinite;
 }
 
 @keyframes bounce {
   0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
+}
+
+h2 {
+  font-size: 20px;
 }
 
 button {
-  margin-top: 20px;
-  padding: 12px 20px;
+  margin-top: 15px;
+  padding: 12px 18px;
   border: none;
   border-radius: 25px;
   background: #ff6f91;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #ff3e6c;
+button:active {
+  transform: scale(0.95);
 }
 
 .message {
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 15px;
+  font-size: 16px;
   color: #ff3e6c;
-  min-height: 50px;
+  min-height: 45px;
+  padding: 0 5px;
 }
 
 .bigWish {
-  font-size: 28px;
+  font-size: 24px;
   color: #ff3e6c;
-  animation: pop 1s ease forwards;
+  animation: pop 0.8s ease forwards;
 }
 
 @keyframes pop {
-  from {transform: scale(0.7); opacity: 0;}
+  from {transform: scale(0.8); opacity: 0;}
   to {transform: scale(1); opacity: 1;}
 }
 
 /* Floating hearts */
 .heart {
-  position: absolute;
+  position: fixed;
   bottom: -20px;
-  font-size: 20px;
+  font-size: 18px;
   animation: floatUp 4s linear forwards;
   z-index: 1;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
@@ -87,11 +103,20 @@ button:hover {
     opacity: 1;
   }
   100% {
-    transform: translateY(-110vh) scale(1.5);
+    transform: translateY(-120vh) scale(1.4);
     opacity: 0;
   }
 }
 
+/* Slight scaling for very small phones */
+@media (max-width: 360px) {
+  .container {
+    padding: 20px;
+  }
+  .bigWish {
+    font-size: 20px;
+  }
+}
 </style>
 </head>
 
@@ -117,9 +142,9 @@ function startWish() {
     if (i < text.length) {
       msgBox.innerHTML += text.charAt(i);
       i++;
-      setTimeout(typeWriter, 50);
+      setTimeout(typeWriter, 40);
     } else {
-      setTimeout(showFinalWish, 1500);
+      setTimeout(showFinalWish, 1200);
     }
   }
 
@@ -136,24 +161,23 @@ function showFinalWish() {
 }
 
 function startHearts() {
+  const emojis = ["💖","💕","💘","💗","💞"];
+  
   setInterval(() => {
     let heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
+    heart.className = "heart";
+    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.fontSize = (Math.random() * 15 + 15) + "px";
+    
     document.body.appendChild(heart);
 
     setTimeout(() => {
       heart.remove();
     }, 4000);
-  }, 250);
+  }, 300);
 }
 </script>
 
 </body>
 </html>
-
-
-
-
