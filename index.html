@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Wish 💗</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(135deg, #ffd6e0, #fff0f5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  width: 90%;
+  max-width: 400px;
+  z-index: 2;
+}
+
+.cat {
+  font-size: 70px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #ff6f91;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff3e6c;
+}
+
+.message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ff3e6c;
+  min-height: 50px;
+}
+
+.bigWish {
+  font-size: 28px;
+  color: #ff3e6c;
+  animation: pop 1s ease forwards;
+}
+
+@keyframes pop {
+  from {transform: scale(0.7); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 4s linear forwards;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="box">
+  <div class="cat">🐱💗</div>
+  <h2>Trishnaaaaaa...</h2>
+  <button id="btn" onclick="startWish()">Tap if no one wished you today 🥺</button>
+  <div class="message" id="message"></div>
+</div>
+
+<script>
+function startWish() {
+  const text = "If nobody wished you today... then let me be the first.";
+  let i = 0;
+  const msgBox = document.getElementById("message");
+  const btn = document.getElementById("btn");
+
+  btn.style.display = "none";
+
+  function typeWriter() {
+    if (i < text.length) {
+      msgBox.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 50);
+    } else {
+      setTimeout(showFinalWish, 1500);
+    }
+  }
+
+  typeWriter();
+}
+
+function showFinalWish() {
+  const box = document.getElementById("box");
+  box.innerHTML = `
+    <div class="cat">🐱💖</div>
+    <div class="bigWish">Happy Valentine’s Day 💗</div>
+  `;
+  startHearts();
+}
+
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }, 250);
+}
+</script>
+
+</body>
+</html>
